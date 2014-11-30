@@ -4,7 +4,7 @@
 ## Development
 ### run localy
 ```bash
-lein pdo cljx auto, midje :autotest
+lein pdo midje :autotest target/classes test, cljx auto
 ```
 
 ### deploy 
