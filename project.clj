@@ -10,13 +10,14 @@
   :source-paths ["src/clx"]
 
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [com.andrewmcveigh/cljs-time "0.1.6"]
                  [org.clojure/clojurescript "0.0-2202"]
-                 [im.chit/purnam "0.4.3"]
+                 [org.clojure/test.check "0.6.1"]
+                 [midje "1.6.3"]
                  [org.clojure/core.async "0.1.278.0-76b25b-alpha"]
                  [org.clojure/clojurescript "0.0-2371"]]
 
   :plugins [[lein-cljsbuild "1.0.3"]
+            [lein-midje "3.1.1"]
             [com.keminglabs/cljx "0.4.0"]]
 
   :hooks [cljx.hooks]
