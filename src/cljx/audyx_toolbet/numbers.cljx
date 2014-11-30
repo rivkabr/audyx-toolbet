@@ -1,4 +1,4 @@
-(ns audyx.utils.numbers)
+(ns audyx-toolbet.numbers)
 
 (defn factors [x]
   "integer -> vector[integers]"

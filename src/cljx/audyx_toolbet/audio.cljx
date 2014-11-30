@@ -1,4 +1,4 @@
-(ns audyx.utils.audio
+(ns audyx-toolbet.audio
   #+clj (:import [java.Math]))
 
 (defn log[x]

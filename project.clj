@@ -16,31 +16,31 @@
                  [org.clojure/core.async "0.1.278.0-76b25b-alpha"]
                  [org.clojure/clojurescript "0.0-2371"]]
 
-  :plugins [[lein-cljsbuild "1.0.3"]]
+  :plugins [[lein-cljsbuild "1.0.3"]
+            [com.keminglabs/cljx "0.4.0"]]
 
-  :hooks [cljx.hooks leiningen.cljsbuild]
+  :hooks [cljx.hooks]
   :cljx {:builds [{:source-paths ["src/cljx"]
-                 :output-path "cljx_generated"
+                 :output-path "target/classes"
                  :rules :clj}
 
                 {:source-paths ["src/cljx"]
-                 :output-path "cljx_generated"
+                 :output-path "target/classes"
                  :rules :cljs}]}
 
 
-  :cljsbuild
-  {:builds {;; This build is only used for including any cljs source
-            ;; in the packaged jar when you issue lein jar command and
-            ;; any other command that depends on it
-            :klozzer
-            {:source-paths ["cljx_generated"]
-             ;; The :jar true option is not needed to include the CLJS
-             ;; sources in the packaged jar. This is because we added
-             ;; the CLJS source codebase to the Leiningen
-             ;; :source-paths
-             ;:jar true
-             ;; Compilation Options
-             :compiler
-             {:output-to "dev-resources/public/js/audyx_toolbet.js"
-              :optimizations :simple
-              :pretty-print true}}}})
+  :cljsbuild {:builds {;; This build is only used for including any cljs source
+                       ;; in the packaged jar when you issue lein jar command and
+                       ;; any other command that depends on it
+                       :klozzer
+                       {:source-paths ["target/classes"]
+                        ;; The :jar true option is not needed to include the CLJS
+                        ;; sources in the packaged jar. This is because we added
+                        ;; the CLJS source codebase to the Leiningen
+                        ;; :source-paths
+                        ;:jar true
+                        ;; Compilation Options
+                        :compiler
+                        {:output-to "target/audyx_toolbet.js"
+                         :optimizations :simple
+                         :pretty-print true}}}})
