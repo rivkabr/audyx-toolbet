@@ -17,7 +17,8 @@
                  [org.clojure/clojurescript "0.0-2371"]]
 
   :plugins [[lein-cljsbuild "1.0.3"]
-            [lein-midje "3.1.1"]
+            [lein-pdo "0.1.1"]
+            [lein-midje "3.1.3"]
             [com.keminglabs/cljx "0.4.0"]]
 
   :hooks [cljx.hooks]
