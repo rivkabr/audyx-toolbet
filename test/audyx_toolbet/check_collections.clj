@@ -61,3 +61,7 @@
                 (let [res (nearest-of-seq a b)]
                   (= (map #(min-dist a %) b)
                      (map dist res b)))))
+
+(defspec check-unflatten-keys 10
+  (prop/for-all [m (gen/map (gen/such-that not-empty (gen/vector gen/int)) gen/int)]
+    (= m (flatten-keys (unflatten-keys m)))))

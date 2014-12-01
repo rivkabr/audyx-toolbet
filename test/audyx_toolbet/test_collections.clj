@@ -192,5 +192,11 @@
         ?a ?b ?res
         {:a {:b {1 'a' 2 'b'}}} {:a {:b {1 'I'}}} {:a {:b {1 'I' 2 'b'}}}
         {:a {:b {1 'a'}}} {} {:a {:b {1 'a'}}}
-        ; {:a {:b {1 'a'}}} nil {:a {:b {1 'a'}}} see: http://stackoverflow.com/questions/27130961/clojure-deep-merge-to-ignore-nil-values
-        ))
+        {:a {:b {1 'a'}}} nil {:a {:b {1 'a'}}}
+        )
+       (tabular
+        (fact "unflatten-keys" (unflatten-keys ?m) => ?res)
+        ?m ?f ?res
+        {[:a :b :c] "1" [:d :e :f] true} {:a {:b {:c "1"}} :d {:e {:f true}}}
+        )
+       )
