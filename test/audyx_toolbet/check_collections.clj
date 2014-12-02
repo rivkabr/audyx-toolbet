@@ -1,6 +1,8 @@
 (ns audyx-toolbet.check-collections
   (:use [audyx-toolbet.collections])
-  (:require [clojure.test.check :as tc]
+  (:require  [miner.herbert :as h]
+            [miner.herbert.generators :as hg]
+            [clojure.test.check :as tc]
             [clojure.test.check.generators :as gen]
             [clojure.test.check.clojure-test :refer [defspec]]
             [clojure.test.check.properties :as prop]))
@@ -18,16 +20,16 @@
                 (let [res (select-keys-in-order m keyseq)]
                   (every? identity (map #(= (get m %1) %2) keyseq res)))))
 
+(defspec check-max-and-min-h 100
+  (hg/property (fn [v] 
+                 (let [[the-max the-min] (max-and-min v)]
+                   (and
+                     (= the-min (apply min v))
+                     (= the-max (apply max v)))))
+               '[int+]))
 
 
-(defspec check-max-and-min 100
-  (prop/for-all [v (gen/vector gen/int)]
-                (let [[the-max the-min] (max-and-min v)]
-                  (if (empty? v)
-                    (= the-max the-min 0)
-                    (and
-                      (= the-min (apply min v))
-                      (= the-max (apply max v)))))))
+
 
 (defspec check-flatten-keys 100
   (prop/for-all [mmm (gen/such-that not-empty (gen/map gen/keyword gen/int))]
@@ -36,13 +38,13 @@
                     (every? true? (map #(= (get res %) (get-in m %)) (keys res))))))
 
 (defspec check-append-cyclic 100
-  (prop/for-all [v (gen/such-that #(> (count %) 1) (gen/vector gen/int))
-                 x gen/int]
-                (let [res (append-cyclic v x)]
-                  (and (= (count res) (count v))
-                       (= x (last res))
-                       (= (first res) (second v))
-                       (= (drop-last 1 res) (rest v))))))
+  (hg/property (fn [v x]
+                 (let [res (append-cyclic v x)]
+                   (and (= (count res) (count v))
+                        (= x (last res))
+                        (= (first res) (second v))
+                        (= (drop-last 1 res) (rest v)))))
+               '[int+ 2] 'int))
 
 
 (defn dist [a b]

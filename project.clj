@@ -12,6 +12,7 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2202"]
                  [org.clojure/test.check "0.6.1"]
+                 [com.velisco/herbert "0.6.6"]
                  [midje "1.6.3"]
                  [org.clojure/core.async "0.1.278.0-76b25b-alpha"]
                  [org.clojure/clojurescript "0.0-2371"]]
