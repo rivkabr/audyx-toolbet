@@ -20,7 +20,7 @@
 
 
 
-(defspec check-max-and-min 11
+(defspec check-max-and-min 100
   (prop/for-all [v (gen/vector gen/int)]
                 (let [[the-max the-min] (max-and-min v)]
                   (if (empty? v)
@@ -29,13 +29,13 @@
                       (= the-min (apply min v))
                       (= the-max (apply max v)))))))
 
-(defspec check-flatten-keys 10
+(defspec check-flatten-keys 100
   (prop/for-all [mmm (gen/such-that not-empty (gen/map gen/keyword gen/int))]
                 (let [m {:a mmm}
                       res (flatten-keys m)]
                     (every? true? (map #(= (get res %) (get-in m %)) (keys res))))))
 
-(defspec check-append-cyclic 12
+(defspec check-append-cyclic 100
   (prop/for-all [v (gen/such-that #(> (count %) 1) (gen/vector gen/int))
                  x gen/int]
                 (let [res (append-cyclic v x)]
@@ -61,7 +61,16 @@
                 (let [res (nearest-of-seq a b)]
                   (= (map #(min-dist a %) b)
                      (map dist res b)))))
+;;;
 
-(defspec check-unflatten-keys 10
+#(defspec check-unflatten-keys 100
   (prop/for-all [m (gen/map (gen/such-that not-empty (gen/vector gen/int)) gen/int)]
     (= m (flatten-keys (unflatten-keys m)))))
+
+(defspec check-flatten-keys 100
+  (prop/for-all [m (gen/recursive-gen 
+                      (fn [inner] (gen/such-that not-empty (gen/map gen/int inner)))
+                      gen/int)]
+    (= m (unflatten-keys (flatten-keys m)))))
+
+
