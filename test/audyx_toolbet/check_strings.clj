@@ -1,11 +1,9 @@
 (ns audyx-toolbet.check-strings
-  (:use [expectations]
-        [audyx-toolbet.strings])
+  (:use [audyx-toolbet.strings])
   (:require [clojure.test.check :as tc]
             [clojure.test.check.generators :as gen]
             [clojure.test.check.clojure-test :refer [defspec]]
-            [clojure.test.check.properties :as prop]
-            [expectations :refer :all]))
+            [clojure.test.check.properties :as prop]))
 
 (defspec check-string-begins? 20
   (prop/for-all [s gen/string
