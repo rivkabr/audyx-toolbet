@@ -24,6 +24,13 @@
 (defn map-object-with-key [f m]
   (into {} (map (fn [[a b]] [a (f a b)]) m)))
 
+(defn map-2d-vec-kv [fk fv m]
+  (map (fn[[k id]] [(fk k) (fv id)]) m))
+
+(defn map-object-kv [fk fv m]
+  (vec->map (map-2d-vec-kv fk fv m)))
+
+
 (defn map-reverse-hierarchy [m] ;http://stackoverflow.com/a/23653784/813665
   (or (apply merge-with conj
          (for [[k1 v1] m [k2 v2] v1] {k2 {k1 v2}}))
@@ -186,14 +193,28 @@
 (defn flatten-keys "http://blog.jayfields.com/2010/09/clojure-flatten-keys.html"
   [m] (flatten-keys* {} [] m))
 
+(defn unflatten-keys [m]
+  (reduce-kv (fn [a b c] (assoc-in a b c)) {} m))
+
 (defn recursive-vals [m]
   (when m (vals (flatten-keys m))))
 
 (defn sort-keys-by [a-func a-map]
   (map first (sort-by a-func a-map)))
 
-(defn deep-merge
-  [& xs]
-  (if (every? map? xs)
-    (apply merge-with deep-merge xs)
-    (last xs)))
+(defn deep-merge* [& maps]
+  (let [f (fn [old new]
+            (if (and (map? old) (map? new))
+              (merge-with deep-merge* old new)
+              new))]
+    (if (every? map? maps)
+      (apply merge-with f maps)
+      (last maps))))
+
+(defn deep-merge [& maps]
+  (let [maps (filter identity maps)]
+    (assert (every? map? maps))
+    (apply merge-with deep-merge* maps)))
+
+(defn unflatten-keys [m]
+    (reduce-kv (fn [a b c] (assoc-in a b c)) {} m))
