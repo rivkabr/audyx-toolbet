@@ -14,5 +14,7 @@ lein pdo midje :autotest target/classes test, cljx auto
 
 ### deploy 
 ```bash
+lein install
+
 lein deploy clojars
 ```
