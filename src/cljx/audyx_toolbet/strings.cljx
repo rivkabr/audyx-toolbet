@@ -13,13 +13,10 @@
        (replace regex-char-esc-smap)
        (reduce str)))
 
-(defn string-begins? [string query]
-  (if (string/blank? query)
-    true
-    (as-> query $
-         (string/lower-case $)
+(defn string-begins? "returns true if string starts with prefix" [string prefix]
+    (as-> prefix $
          (escape-string $)
          (re-pattern (str "^" $))
-         (re-find $ (string/lower-case string))
-         (not (nil? $)))))
+         (re-find $ string)
+         (not (nil? $))))
 

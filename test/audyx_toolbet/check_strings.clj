@@ -5,7 +5,7 @@
             [clojure.test.check.clojure-test :refer [defspec]]
             [clojure.test.check.properties :as prop]))
 
-(defspec check-string-begins? 20
+(defspec check-string-begins? 100
   (prop/for-all [s gen/string
   				 q gen/string]
                 (let [res (string-begins? s q)]

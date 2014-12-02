@@ -7,6 +7,8 @@
        (fact "string-begins?" (string-begins? ?a ?b) =>  ?res)
        		?a ?b ?res
        		"" "query" false
+            "(" " " false
+            "" "" true
        		"string" "" true
        		"string" "string" true
        		"string" "str" true
