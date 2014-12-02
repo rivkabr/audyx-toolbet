@@ -1,4 +1,4 @@
-# audyx-toolbet
+# audyx-toolbet [![Circle CI](https://circleci.com/gh/Audyx/audyx-toolbet.svg?style=svg)](https://circleci.com/gh/Audyx/audyx-toolbet)
 
 ##Usage
 
