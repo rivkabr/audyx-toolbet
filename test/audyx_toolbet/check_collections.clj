@@ -20,7 +20,7 @@
                 (let [res (select-keys-in-order m keyseq)]
                   (every? identity (map #(= (get m %1) %2) keyseq res)))))
 
-(defspec check-max-and-min-h 100
+(defspec check-max-and-min 100
   (hg/property (fn [v] 
                  (let [[the-max the-min] (max-and-min v)]
                    (and
