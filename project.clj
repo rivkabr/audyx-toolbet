@@ -1,4 +1,4 @@
-(defproject viebel/audyx-toolbet "0.0.4"
+(defproject viebel/audyx-toolbet "0.0.5"
   :description "Audyx toolbet"
   :url "https://github.com/viebel/audyx-toolbet"
   :license {:name "Eclipse Public License - v 1.0"
